@@ -17,8 +17,8 @@ So, here are the steps:
 6) Step 5) should have brought you to the "Select Location for Virtual Enviornment" window. Once here, you'll need to click on the "downloaded_project_folder" that you extracted, and then, after the last letter in the name that pops up in the "Location:" input box, you'll need to add \venv to it. 
   i) NOTE: This may not be a necessary step. Python may have already had the folder you were looking for pulled up, and there may already be a \venv at the end of the file path. If you are confused, do not try to go further unless you feel confident you have the same "downloaded_project_folder" location.
   ii) The "Location:" input box should have a file path that looks something like this: "C:\...\downloaded_project_folder\venv"
-7) Upon locating the correct folder and making sure that it has \venv at the end of the file path, you can go ahead and press on "Ok". 
-8) Here is an example of what a file path should look like after you completed the steps above: ![image](https://user-images.githubusercontent.com/62074841/122612832-6cb62b00-d049-11eb-83f1-fa24f6fc3c9b.png)
+7) Upon locating the correct folder and making sure that it has \venv at the end of the file path, you can go ahead and press on "Ok". <br><br>
+8) Here is an example of what a file path should look like after you completed the steps above: <br><br> ![image](https://user-images.githubusercontent.com/62074841/122612832-6cb62b00-d049-11eb-83f1-fa24f6fc3c9b.png) <br><br>
 9) So, we've got the previous steps taken care of, now you need to add the proper configuration to the current main.py that you are going to work on. Before this though, make sure that you have the project's main.py file open and ready to configure. 
 10) To get to where you need to be now, you'll need to follow the next couple of click-steps:
   i) Click:  The dropdown (Left of the "Run icon *triangle*") -> Edit Configurations
