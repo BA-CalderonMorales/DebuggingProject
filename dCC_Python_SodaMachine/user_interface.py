@@ -1,15 +1,29 @@
 import os
 
+from dCC_Python_SodaMachine.wallet import Wallet
+
 
 def simulation_main_menu():
     """Main menu prompting user to choose an option"""
     validate_user_selection = (False, None)
+    #  Bug: "Press -#- was off by one number. Updated to proper numeration 1 - 4.
     while validate_user_selection[0] is False:
         print("\t\t-Simulation menu-")
-        print("\tPress -0- to begin transaction")
-        print("\tPress -1- to check wallet for coins")
-        print("\tPress -2- to check backpack for cans")
-        print("\tPress -3- to terminate simulation")
+        print("\tPress -1- to begin transaction")
+        print("\tPress -2- to check wallet for coins")
+        print("\tPress -3- to check backpack for cans")
+        print("\tPress -4- to terminate simulation")
+        if try_parse_int(input()) == 1:
+            pass
+        elif try_parse_int(input()) == 2:
+            new_wallet = Wallet()
+            display_customer_wallet_info(new_wallet.fill_wallet(), 0)
+        elif try_parse_int(input()) == 3:
+            pass
+        elif try_parse_int(input()) == 4:
+            pass
+        #  The following two lines of code just serve for validation of above
+        #  prompted input text field.
         user_input = try_parse_int(input())
         validate_user_selection = validate_main_menu(user_input)
     return validate_user_selection[1]
@@ -28,11 +42,12 @@ def validate_main_menu(user_input):
 
 def display_customer_wallet_info(coins_list, total_value):
     """Takes in a list of ints to display number of coins along with total value of coins."""
-    print('You have {coins_list[0]} Quarters')
-    print('You have {coins_list[1]} Dimes')
-    print('You have {coins_list[2]} Nickels')
-    print('You have {coins_list[3]} Pennies')
-    print('Your wallet\'s total value is {total_value}')
+    # Bug: Missing f'...' at the beginning of the print statement.
+    print(f'You have {coins_list[0]} Quarters')
+    print(f'You have {coins_list[1]} Dimes')
+    print(f'You have {coins_list[2]} Nickels')
+    print(f'You have {coins_list[3]} Pennies')
+    print(f'Your wallet\'s total value is {total_value}')
 
 
 def display_welcome():
@@ -40,7 +55,7 @@ def display_welcome():
     print("\nWelcome to the soda machine.  We only take coins as payment. \n")
     user_response = continue_prompt("Would you like to make a purchase? (y/n):")
     if user_response:
-        return True
+        return True, "y", "yes"
     else:
         print("Please step aside to allow another customer to make a selection")
         return False

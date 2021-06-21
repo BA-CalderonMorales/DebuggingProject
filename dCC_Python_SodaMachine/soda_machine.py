@@ -10,6 +10,7 @@ class SodaMachine:
         """Method will fill SodaMachine's register with certain amounts of each coin when called."""
         #  Missing import: from dCC_Python_SodaMachine import coins
         #  Scope fixed: "self.register...." within each for loop in wrong tab position
+        #  Bug fix: .value added to end of each coin.Type to show the current value of each coin.
         for index in range(8):
             self.register.append(coins.Quarter())
         for index in range(10):
@@ -32,7 +33,7 @@ class SodaMachine:
     def begin_transaction(self, customer):
         """Method is complete. Initiates purchase if user decides to proceed. No errors."""
         #  Missing imports: from dCC_Python_SodaMachine import user_interface
-        will_proceed = user_interface.display_welcome()
+        will_proceed = user_interface.display_welcome()  # True when the user wants to proceed.
         if will_proceed:
             self.run_transaction(customer)
 
@@ -41,8 +42,9 @@ class SodaMachine:
         selected_soda_name = user_interface.soda_selection(self.inventory)
 
         selected_soda = self.get_inventory_soda(selected_soda_name)
-
-        customer_payment = customer.gather_coins_from_wallet(selected_soda_name)
+        #  Bug fix: selected_soda_name and not selected_soda was being passed into the
+        # customer.gather_coins_from_wallet(...) method.
+        customer_payment = customer.gather_coins_from_wallet(selected_soda)
 
         self.calculate_transaction(customer_payment, selected_soda_name, customer)
 
