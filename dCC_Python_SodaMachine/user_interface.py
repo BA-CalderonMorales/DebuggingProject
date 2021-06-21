@@ -13,18 +13,23 @@ def simulation_main_menu():
         print("\tPress -2- to check wallet for coins")
         print("\tPress -3- to check backpack for cans")
         print("\tPress -4- to terminate simulation")
-        if try_parse_int(input()) == 1:
+        user_input = try_parse_int(input())
+        if user_input == 1:
             pass
-        elif try_parse_int(input()) == 2:
+        elif user_input == 2:
             new_wallet = Wallet()
             display_customer_wallet_info(new_wallet.fill_wallet(), 0)
-        elif try_parse_int(input()) == 3:
+            # Bug:  Added a re-prompt warning after showing the customer their wallet info
+            print("\nNow that you've seen your current balance, here are your Main Menu "
+                  "choices: \n")
+            #  Re-prompted the customer with their options.
+            simulation_main_menu()
+        elif user_input == 3:
             pass
-        elif try_parse_int(input()) == 4:
+        elif user_input == 4:
             pass
         #  The following two lines of code just serve for validation of above
         #  prompted input text field.
-        user_input = try_parse_int(input())
         validate_user_selection = validate_main_menu(user_input)
     return validate_user_selection[1]
 
