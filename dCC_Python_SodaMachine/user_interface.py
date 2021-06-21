@@ -22,35 +22,15 @@ def simulation_main_menu():
         print("\tPress -3- to check backpack for cans")
         print("\tPress -4- to terminate simulation\n")
         user_input = try_parse_int(input("Enter your choice here: "))
-        #  Begin Transaction
-        if user_input == 1:
-            soda_machine = SodaMachine()
-            new_customer = Customer()
-            soda_machine.begin_transaction(new_customer)
-            simulation_main_menu()
-        #  Check Wallet for Coins
-        elif user_input == 2:
-            new_wallet = Wallet()
-            current_coins_list = new_wallet.fill_wallet()
-            #  Fill a new_wallet with coins
-            display_customer_wallet_info(current_coins_list)
-            simulation_main_menu()
-        #  Check Backpack for Cans
-        elif user_input == 3:
-            new_backpack = Backpack()
-            current_cans_quantity = len(new_backpack.purchased_cans)
-            print(f"\n\tCan quantity: {current_cans_quantity}\n")
-            simulation_main_menu()
-        #  Terminate Simulation
-        elif user_input == 4:
-            print("\n\tThanks for being a part of the simulation for a bit!")
-            print("\n\tMake sure not to get lost in the Matrix on your way out.")
-        #  The following two lines of code just serve for validation of above
-        #  prompted input text field.
         validate_user_selection = validate_main_menu(user_input)
-    return validate_user_selection[1]
-
-
+        result = True
+        if validate_user_selection[1] == 4 or user_input >= 4 or user_input <= 0:
+            #  Returns False if user chooses 4 
+            result = False
+        else:
+            #  Returns True if user chooses 1-3
+            pass
+        return result
 def validate_main_menu(user_input):
     """Validation function that checks if 'user_input' argument is an int 1-4. No errors."""
     switcher = {
@@ -128,12 +108,12 @@ def truncate(f, n):
 def display_welcome():
     """Initial method asking user if they'll make a purchase. No errors."""
     print("\nWelcome to the soda machine.  We only take coins as payment. \n")
-    user_response = continue_prompt("Would you like to make a purchase? (y/n):")
+    user_response = continue_prompt("Would you like to make a purchase? (y/n): ")
     if user_response:
         return True, "y", "yes"
     else:
         print("Please step aside to allow another customer to make a selection")
-        return False
+        return False, "n", "no"
 
 
 def output_text(text):
@@ -157,7 +137,7 @@ def continue_prompt(text):
 
 
 def soda_selection(inventory):
-    """Displays purchasable soda inventory and """
+    """Displays purchasable soda inventory and costs"""
     validated_user_selection = (None, None)
     soda_options = get_unique_can_names(inventory)
     while validated_user_selection[0] is False:

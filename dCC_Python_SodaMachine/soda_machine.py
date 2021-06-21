@@ -34,7 +34,7 @@ class SodaMachine:
         """Method is complete. Initiates purchase if user decides to proceed. No errors."""
         #  Missing imports: from dCC_Python_SodaMachine import user_interface
         will_proceed = user_interface.display_welcome()  # True when the user wants to proceed.
-        if will_proceed:
+        if will_proceed:  # True
             self.run_transaction(customer)
 
     def run_transaction(self, customer):
