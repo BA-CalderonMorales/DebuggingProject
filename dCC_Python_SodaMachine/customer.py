@@ -65,8 +65,9 @@ class Customer:
 
     def check_backpack():
         """Will display the cans contained in purchased_cans list in backpack"""
-        if backpack.purchased_cans.length > 0:
+        self.backpack
+        if self.backpack.purchased_cans.length > 0:
             user_interface.output_text("You have no cans in your backpack")
         else:
-            for can in backpack.purchased_cans:
+            for can in self.backpack.purchased_cans:
                 user_interface.output_text(can.name)

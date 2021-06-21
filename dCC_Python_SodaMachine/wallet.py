@@ -21,4 +21,5 @@ class Wallet:
         for index in range(50):
             self.money.append(coins.Penny())
         # Missing return statement. Needs to return the money in the current wallet
+            # Will just return the wallet with the money[] list.
         return self.money

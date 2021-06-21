@@ -30,6 +30,6 @@ So, here are the steps:
     a) Click on the dropdown, and the only change here is to make sure that the current interpreter is not highlighted in red. If you did Steps 1) - 8) right, then there should be another interpreter setting with the \downloaded_project_folder\venv\Scripts\python.exe ending. Again, this is only if the current interpreter settings is literally the color red.<br>
 12) After you followed step 11) exactly, you'll be able to apply the settings, and, finally, run your code. 
 
-<b>And that's it!<b>
+<b>And that's it!</b>
   
 EXTRA: For debugging in PyCharm IDE, there is a command line tool called pdb. To use it, you'll need to use the following bit of code `pbd.set_trace()` whenever you want to step through a method, instead of using the built-in stepper that PyCharm has. It's just a tool, so feel free to use it (or not). Totally up to you! Happy coding!

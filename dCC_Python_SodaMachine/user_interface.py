@@ -1,8 +1,15 @@
 import os
+import pdb
+from math import floor
 
+from dCC_Python_SodaMachine.customer import Customer
+from dCC_Python_SodaMachine.soda_machine import SodaMachine
 from dCC_Python_SodaMachine.wallet import Wallet
 
 
+#  One thing I notice is that this Python file doesn't need a class header.
+#  I figure this may be due to this being an actual Interface type in Python.
+#  I'll come back here in case I find out otherwise.
 def simulation_main_menu():
     """Main menu prompting user to choose an option"""
     validate_user_selection = (False, None)
@@ -12,13 +19,18 @@ def simulation_main_menu():
         print("\tPress -1- to begin transaction")
         print("\tPress -2- to check wallet for coins")
         print("\tPress -3- to check backpack for cans")
-        print("\tPress -4- to terminate simulation")
-        user_input = try_parse_int(input())
+        print("\tPress -4- to terminate simulation\n")
+        user_input = try_parse_int(input("Enter your choice here: "))
+        print("\n")
         if user_input == 1:
+            soda_machine = SodaMachine()
+            new_customer = Customer()
+            soda_machine.begin_transaction(new_customer)
             pass
         elif user_input == 2:
             new_wallet = Wallet()
-            display_customer_wallet_info(new_wallet.fill_wallet(), 0)
+            #  Fill a new_wallet with coins
+            display_customer_wallet_info(new_wallet.fill_wallet())
             # Bug:  Added a re-prompt warning after showing the customer their wallet info
             print("\nNow that you've seen your current balance, here are your Main Menu "
                   "choices: \n")
@@ -45,14 +57,63 @@ def validate_main_menu(user_input):
     return switcher.get(user_input, (False, None))
 
 
-def display_customer_wallet_info(coins_list, total_value):
+#  Bug: Why pass in the total value when you can just use it inside of the function?
+#  Moved total_value from parameter and into a field inside the function.
+def display_customer_wallet_info(coins_list):
     """Takes in a list of ints to display number of coins along with total value of coins."""
     # Bug: Missing f'...' at the beginning of the print statement.
-    print(f'You have {coins_list[0]} Quarters')
-    print(f'You have {coins_list[1]} Dimes')
-    print(f'You have {coins_list[2]} Nickels')
-    print(f'You have {coins_list[3]} Pennies')
-    print(f'Your wallet\'s total value is {total_value}')
+    penny_amount = 0
+    nickel_amount = 0
+    dime_amount = 0
+    quarter_amount = 0
+    for index in coins_list:
+        if index.name == "Penny":
+            penny_amount += 1
+        elif index.name == "Nickel":
+            nickel_amount += 1
+        elif index.name == "Dime":
+            dime_amount += 1
+        elif index.name == "Quarter":
+            quarter_amount += 1
+    print(f'You have {quarter_amount} Quarters')
+    print(f'You have {dime_amount} Dimes')
+    print(f'You have {nickel_amount} Nickels')
+    print(f'You have {penny_amount} Pennies')
+    total_value = add_coins(coins_list)
+    #  Get the total_value and round to the nearest whole penny
+    print(f"'Your wallet\'s total value is {total_value}")
+
+
+#  After getting the total number of coins, now the total value should be printed
+#  out to the screen. This will get you there.
+def add_coins(coins_list):
+    total = 0
+    for index in coins_list:
+        if index.name == "Penny":
+            total += index.value
+        elif index.name == "Nickel":
+            total += index.value
+        elif index.name == "Dime":
+            total += index.value
+        elif index.name == "Quarter":
+            total += index.value
+    return truncate(total, 2)
+
+
+"""  
+  Allows for precision printing of the current wallet value in $ and cents amounts.
+  How this works: the f stands for a float number, and n stands for the decimal
+  point position that you want to adhere to without rounding. If I use round(..)
+  it would just round the number to the nearest whatever place, which does not sit
+  well with money processing. Same logic applies to using floor(...) the following
+  website helped me with this solution:
+  https://stackoverflow.com/questions/29246455/python-setting-decimal-place-range-without-rounding
+"""
+
+
+def truncate(f, n):
+    #  Returns the money currently in the wallet back to the add_coins method.
+    return floor(f * 10 ** n) / 10 ** n
 
 
 def display_welcome():

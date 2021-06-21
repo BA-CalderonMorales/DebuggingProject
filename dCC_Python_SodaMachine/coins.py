@@ -1,24 +1,26 @@
 class Coin:
     def __init__(self, name, value):
-        self.value = value
+        #  Reorganized the order of the attributes. self.name first, then self.value.
         self.name = name
+        self.value = value
 
 
-class Dime(Coin):
+#  Reorganized the order of each coin so it goes from least valuable to most.
+class Penny(Coin):
     def __init__(self):
-        super(Dime, self).__init__("Dime", 0.10)
+        super().__init__("Penny", 0.01)
 
 
 class Nickel(Coin):
     def __init__(self):
-        super(Nickel, self).__init__("Nickel", 0.05)
+        super().__init__("Nickel", 0.05)
 
 
-class Penny(Coin):
+class Dime(Coin):
     def __init__(self):
-        super(Penny, self).__init__("Penny", 0.01)
+        super().__init__("Dime", 0.10)
 
 
 class Quarter(Coin):
     def __init__(self):
-        super(Quarter, self).__init__("Quarter", 0.25)
+        super().__init__("Quarter", 0.25)
