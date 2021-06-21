@@ -4,7 +4,6 @@ from dCC_Python_SodaMachine import coins
 class Wallet:
     def __init__(self):
         self.money = []
-        self.fill_wallet()
         #  AttributeError: 'Wallet' had a missing attribute in 'fill_wallet' error was due to scope.
         #  Sometimes, devs forget that having the methods left justified instead of inline with the
         #  scope of each method can lead to this error.

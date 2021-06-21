@@ -2,6 +2,7 @@ import os
 import pdb
 from math import floor
 
+from dCC_Python_SodaMachine.backpack import Backpack
 from dCC_Python_SodaMachine.customer import Customer
 from dCC_Python_SodaMachine.soda_machine import SodaMachine
 from dCC_Python_SodaMachine.wallet import Wallet
@@ -21,25 +22,29 @@ def simulation_main_menu():
         print("\tPress -3- to check backpack for cans")
         print("\tPress -4- to terminate simulation\n")
         user_input = try_parse_int(input("Enter your choice here: "))
-        print("\n")
+        #  Begin Transaction
         if user_input == 1:
             soda_machine = SodaMachine()
             new_customer = Customer()
             soda_machine.begin_transaction(new_customer)
-            pass
+            simulation_main_menu()
+        #  Check Wallet for Coins
         elif user_input == 2:
             new_wallet = Wallet()
+            current_coins_list = new_wallet.fill_wallet()
             #  Fill a new_wallet with coins
-            display_customer_wallet_info(new_wallet.fill_wallet())
-            # Bug:  Added a re-prompt warning after showing the customer their wallet info
-            print("\nNow that you've seen your current balance, here are your Main Menu "
-                  "choices: \n")
-            #  Re-prompted the customer with their options.
+            display_customer_wallet_info(current_coins_list)
             simulation_main_menu()
+        #  Check Backpack for Cans
         elif user_input == 3:
-            pass
+            new_backpack = Backpack()
+            current_cans_quantity = len(new_backpack.purchased_cans)
+            print(f"\n\tCan quantity: {current_cans_quantity}\n")
+            simulation_main_menu()
+        #  Terminate Simulation
         elif user_input == 4:
-            pass
+            print("\n\tThanks for being a part of the simulation for a bit!")
+            print("\n\tMake sure not to get lost in the Matrix on your way out.")
         #  The following two lines of code just serve for validation of above
         #  prompted input text field.
         validate_user_selection = validate_main_menu(user_input)
@@ -66,22 +71,26 @@ def display_customer_wallet_info(coins_list):
     nickel_amount = 0
     dime_amount = 0
     quarter_amount = 0
-    for index in coins_list:
-        if index.name == "Penny":
-            penny_amount += 1
-        elif index.name == "Nickel":
-            nickel_amount += 1
-        elif index.name == "Dime":
-            dime_amount += 1
-        elif index.name == "Quarter":
-            quarter_amount += 1
-    print(f'You have {quarter_amount} Quarters')
-    print(f'You have {dime_amount} Dimes')
-    print(f'You have {nickel_amount} Nickels')
-    print(f'You have {penny_amount} Pennies')
-    total_value = add_coins(coins_list)
-    #  Get the total_value and round to the nearest whole penny
-    print(f"'Your wallet\'s total value is {total_value}")
+    if coins_list[0] is 0:
+        total_value = 0
+        print(f"\t\nThe total value of your wallet is: ${total_value}.00\n")
+    else:
+        for index in coins_list:
+            if index.name == "Penny":
+                penny_amount += 1
+            elif index.name == "Nickel":
+                nickel_amount += 1
+            elif index.name == "Dime":
+                dime_amount += 1
+            elif index.name == "Quarter":
+                quarter_amount += 1
+        print(f'\n\tYou have {quarter_amount} Quarters')
+        print(f'\tYou have {dime_amount} Dimes')
+        print(f'\tYou have {nickel_amount} Nickels')
+        print(f'\tYou have {penny_amount} Pennies')
+        total_value = add_coins(coins_list)
+        #  Get the total_value and round to the nearest whole penny
+        print(f"\tThe total value of your wallet is: ${total_value}\n")
 
 
 #  After getting the total number of coins, now the total value should be printed
